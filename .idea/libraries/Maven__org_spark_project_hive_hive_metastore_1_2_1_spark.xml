@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.spark-project.hive:hive-metastore:1.2.1.spark">
+    <CLASSES>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/org/spark-project/hive/hive-metastore/1.2.1.spark/hive-metastore-1.2.1.spark.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/org/spark-project/hive/hive-metastore/1.2.1.spark/hive-metastore-1.2.1.spark-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/org/spark-project/hive/hive-metastore/1.2.1.spark/hive-metastore-1.2.1.spark-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

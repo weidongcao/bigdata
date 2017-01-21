@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.mortbay.jetty:jetty:6.1.26.cloudera.2">
+    <CLASSES>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/org/mortbay/jetty/jetty/6.1.26.cloudera.2/jetty-6.1.26.cloudera.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/org/mortbay/jetty/jetty/6.1.26.cloudera.2/jetty-6.1.26.cloudera.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/org/mortbay/jetty/jetty/6.1.26.cloudera.2/jetty-6.1.26.cloudera.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

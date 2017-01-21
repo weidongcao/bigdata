@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.sun.jersey:jersey-servlet:1.14">
+    <CLASSES>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/com/sun/jersey/jersey-servlet/1.14/jersey-servlet-1.14.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/com/sun/jersey/jersey-servlet/1.14/jersey-servlet-1.14-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/workspace/Tools/apache-maven-3.3.9/repository/com/sun/jersey/jersey-servlet/1.14/jersey-servlet-1.14-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

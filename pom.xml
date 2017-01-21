@@ -9,10 +9,18 @@
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <scala.version>2.10</scala.version>
+    <spark.version>1.6.2</spark.version>
+    <hadoop.version>2.6.0</hadoop.version>
   </properties>
   <dependencies>
+      <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-library</artifactId>
+          <version>2.10.6</version>
+      </dependency>
       <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
       <dependency>
           <groupId>dom4j</groupId>
@@ -174,6 +182,90 @@
       <version>1.1.0-cdh5.4.10</version>
     </dependency>
 
+      <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase -->
+      <dependency>
+          <groupId>org.apache.hbase</groupId>
+          <artifactId>hbase</artifactId>
+          <version>1.0.0-cdh5.4.10</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-common -->
+      <dependency>
+          <groupId>org.apache.hbase</groupId>
+          <artifactId>hbase-common</artifactId>
+          <version>1.0.0-cdh5.4.10</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-protocol -->
+      <dependency>
+          <groupId>org.apache.hbase</groupId>
+          <artifactId>hbase-protocol</artifactId>
+          <version>1.0.0-cdh5.4.10</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-common -->
+      <dependency>
+          <groupId>org.apache.hbase</groupId>
+          <artifactId>hbase-common</artifactId>
+          <version>1.0.0-cdh5.4.10</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-hadoop-compat -->
+      <dependency>
+          <groupId>org.apache.hbase</groupId>
+          <artifactId>hbase-hadoop-compat</artifactId>
+          <version>1.0.0-cdh5.4.10</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-client -->
+      <dependency>
+          <groupId>org.apache.hbase</groupId>
+          <artifactId>hbase-client</artifactId>
+          <version>1.0.0-cdh5.4.10</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-core_2.10</artifactId>
+          <version>1.6.2</version>
+      </dependency>
+
+      <!-- Spark Streaming -->
+      <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming_2.10 -->
+      <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-streaming_${scala.version}</artifactId>
+          <version>${spark.version}</version>
+      </dependency>
+      <!-- Flume -->
+      <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-flume_2.10 -->
+      <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-streaming-flume_${scala.version}</artifactId>
+          <version>${spark.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka_2.10 -->
+      <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-streaming-kafka_${scala.version}</artifactId>
+          <version>${spark.version}</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-hive_2.10 -->
+      <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-hive_${scala.version}</artifactId>
+          <version>${spark.version}</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-sql_${scala.version}</artifactId>
+          <version>${spark.version}</version>
+      </dependency>
+
       <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
       <dependency>
           <groupId>org.springframework</groupId>
@@ -216,6 +308,11 @@
       <id>cloudera</id>
       <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
     </repository>
+      <repository>
+          <id>scala-tools.org</id>
+          <name>Scala-Tools Maven2 Repository</name>
+          <url>http://scala-tools.org/repo-releases</url>
+      </repository>
   </repositories>
     <build>
     <finalName>bigdata</finalName>
@@ -226,9 +323,14 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <version>2.3.2</version>
             <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
+                <source>1.7</source>
+                <target>1.7</target>
             </configuration>
         </plugin>
+        <pluginRepository>
+            <id>scala-tools.org</id>
+            <name>Scala-Tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </pluginRepository>
     </plugins>
 </project>
