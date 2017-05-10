@@ -79,7 +79,7 @@ public class HBaseApp {
 		
 		HTable table = getHTableByTableName(tableName);
 		
-		Get get = new Get(Bytes.toBytes("1002"));
+		Get get = new Get(Bytes.toBytes("1001"));
 		
 		Result result = table.get(get);
 		
