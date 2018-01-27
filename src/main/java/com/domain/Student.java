@@ -1,4 +1,4 @@
-package j2ee.domain;
+package com.domain;
 
 import java.io.Serializable;
 

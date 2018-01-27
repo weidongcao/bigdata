@@ -1,4 +1,4 @@
-package j2ee.domain;
+package com.domain;
 
 public class User {
 	public String name;
