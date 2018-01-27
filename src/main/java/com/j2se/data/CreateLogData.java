@@ -1,4 +1,4 @@
-package j2se.data;
+package com.j2se.data;
 
 import java.io.*;
 import java.util.ArrayList;

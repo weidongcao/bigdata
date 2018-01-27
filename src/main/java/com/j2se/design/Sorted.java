@@ -1,4 +1,4 @@
-package j2se.design;
+package com.j2se.design;
 
 /**
  * 本程序用于测试java中的各种排序算法

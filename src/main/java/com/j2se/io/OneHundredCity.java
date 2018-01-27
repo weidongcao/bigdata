@@ -1,4 +1,4 @@
-package j2se.io;
+package com.j2se.io;
 
 import java.io.*;
 

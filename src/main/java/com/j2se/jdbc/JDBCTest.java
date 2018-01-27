@@ -1,4 +1,4 @@
-package j2se.jdbc;
+package com.j2se.jdbc;
 
 import java.sql.*;
 
@@ -18,7 +18,7 @@ public class JDBCTest {
 			e.printStackTrace();// 打印出错详细信息
 		}
 		try {
-			url = "jdbc:mysql://hadoop-senior.carmon.com:3306/bigdata";// 简单写法：url
+			url = "jdbc:mysql://hadoop-senior.carmon.com:3306/com.bigdata";// 简单写法：url
 																																				// =
 																																				// "jdbc:myqsl://localhost/test(数据库名)? user=root(用户)&password=yqs2602555(密码)";
 			user = "root";

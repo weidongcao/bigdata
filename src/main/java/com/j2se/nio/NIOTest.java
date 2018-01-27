@@ -1,4 +1,4 @@
-package j2se.nio;
+package com.j2se.nio;
 
 import java.io.FileInputStream;
 import java.io.IOException;

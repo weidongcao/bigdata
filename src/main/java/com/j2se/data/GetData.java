@@ -1,4 +1,4 @@
-package j2se.data;
+package com.j2se.data;
 
 import java.io.*;
 import java.util.Random;
@@ -61,7 +61,7 @@ public class GetData {
 			File file = new File("E:\\Workspaces\\resource\\TestData\\bigdatakey.txt");
 			
 			if(file.exists() == false){
-				System.out.println("bigdata.txt文件不存在");
+				System.out.println("com.bigdata.txt文件不存在");
 				return null;
 			}
 			InputStreamReader input = new InputStreamReader(new FileInputStream(file));
