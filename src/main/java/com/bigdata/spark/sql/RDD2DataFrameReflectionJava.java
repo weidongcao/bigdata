@@ -1,6 +1,6 @@
 package bigdata.spark.sql;
 
-import j2ee.domain.Student;
+import com.domain.Student;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;

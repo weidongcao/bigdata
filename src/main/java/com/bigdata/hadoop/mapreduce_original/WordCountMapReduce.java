@@ -84,9 +84,6 @@ public class WordCountMapReduce {
         //第一步：得到配置文件的信息
         Configuration conf = new Configuration();
 
-conf.set("mapreduce.map.output.compress", "true");
-conf.set("mapreduce.map.output.compress.codec",
-        "org.apache.hadoop.io.compress.SnappyCodec");
 
         //第二步：创建Job
         Job job = Job.getInstance(conf, this.getClass().getSimpleName());
@@ -131,7 +128,7 @@ conf.set("mapreduce.map.output.compress.codec",
     public static void main(String[] args) throws Exception{
         args = new String[]{
             "hdfs://spark.don.com:8020/user/dong/data/word-blank.txt",
-                "hdfs://spark.don.com:8020/user/dong/hadoop/mapred/output"
+                "hdfs://spark.don.com:8020/user/dong/hadoop/mapred/output5"
         };
 
         //run job

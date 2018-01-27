@@ -1,4 +1,4 @@
-package bigdata.scala
+package com.bigdata.spark
 
 /**
   * Created by Administrator on 2016/11/13.

@@ -1,4 +1,4 @@
-package bigdata.scala
+package com.bigdata.spark
 
 import java.awt.Font
 import java.util
@@ -19,8 +19,9 @@ object ImplicitMap {
 
     println("scalaScore => " + scalaScore)
 
-    import scala.collection.JavaConversions.mapAsJavaMap
     import java.awt.font.TextAttribute._
+
+    import scala.collection.JavaConversions.mapAsJavaMap
 
     val scalaAttrMap = Map(FAMILY -> "Serif", SIZE -> 12)
     val font = new Font(scalaAttrMap)

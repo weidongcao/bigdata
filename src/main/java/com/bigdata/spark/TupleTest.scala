@@ -1,4 +1,4 @@
-package bigdata.scala
+package com.bigdata.spark
 
 /**
   * 北风网，中华石杉，Tuple拉链操作

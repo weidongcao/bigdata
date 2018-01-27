@@ -1,4 +1,4 @@
-package bigdata.scala
+package com.bigdata.spark
 
 import scala.collection.mutable.ArrayBuffer
 
