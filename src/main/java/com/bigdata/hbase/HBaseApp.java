@@ -1,4 +1,4 @@
-package bigdata.hbase;
+package com.bigdata.hbase;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.Cell;

@@ -1,4 +1,4 @@
-package bigdata.spark.core;
+package com.bigdata.spark.core;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
@@ -20,7 +20,7 @@ public class BroadcastJava {
                 .setMaster("local");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
-        /**
+        /*
          * 在Java中创建共享变量就是调用SparkContext的Broadcast方法
          * 返回的结果是Broadcast<T>类型
          */
@@ -32,26 +32,18 @@ public class BroadcastJava {
 
         JavaRDD<Integer> rdd = sc.parallelize(original, 1);
 
-        /**
+        /*
          * 让集合中的每个数字都自尊心外部定义的那个Factor
          */
         JavaRDD<Integer> ddd = rdd.map(
-                new Function<Integer, Integer>() {
-                    @Override
-                    public Integer call(Integer v1) throws Exception {
-                        int factor = fb.getValue();
-                        return v1 * factor;
-                    }
+                (Function<Integer, Integer>) v1 -> {
+                    int factor1 = fb.getValue();
+                    return v1 * factor1;
                 }
         );
 
         ddd.foreach(
-                new VoidFunction<Integer>() {
-                    @Override
-                    public void call(Integer integer) throws Exception {
-                        System.out.println("integer = " + integer);
-                    }
-                }
+                (VoidFunction<Integer>) integer -> System.out.println("integer = " + integer)
         );
 
         sc.close();

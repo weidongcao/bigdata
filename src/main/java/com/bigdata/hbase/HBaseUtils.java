@@ -1,4 +1,4 @@
-package bigdata.hbase;
+package com.bigdata.hbase;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;

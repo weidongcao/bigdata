@@ -1,4 +1,4 @@
-package bigdata.spark.streaming;
+package com.bigdata.spark.streaming;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
@@ -14,13 +14,14 @@ import scala.Tuple2;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2016/10/25.
  */
 public class KafkaReceiverWordCountJava {
-public static void main(String[] args) {
+public static void main(String[] args) throws InterruptedException {
     SparkConf conf = new SparkConf()
             .setMaster("local[2]")
             .setAppName("KafkaReceiverWordCountJava");
@@ -42,8 +43,8 @@ public static void main(String[] args) {
     JavaDStream<String> words = original.flatMap(
             new FlatMapFunction<Tuple2<String, String>, String>() {
                 @Override
-                public Iterable<String> call(Tuple2<String, String> stringStringTuple2) throws Exception {
-                    return Arrays.asList(stringStringTuple2._2().split(" "));
+                public Iterator<String> call(Tuple2<String, String> stringStringTuple2) throws Exception {
+                    return Arrays.asList(stringStringTuple2._2().split(" ")).iterator();
                 }
             }
     );

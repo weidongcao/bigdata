@@ -1,4 +1,4 @@
-package bigdata.spark.streaming;
+package com.bigdata.spark.streaming;
 
 import kafka.serializer.StringDecoder;
 import org.apache.spark.SparkConf;
@@ -18,7 +18,7 @@ import java.util.*;
  * Created by Administrator on 2016/10/25.
  */
 public class KafkaDirectWordCountJava {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SparkConf conf = new SparkConf()
                 .setMaster("local[2]")
                 .setAppName("KafkaDirectWordCountJava");
@@ -26,13 +26,13 @@ public class KafkaDirectWordCountJava {
         JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(5));
 
         //首先要创建一份kafka参数map
-        Map<String, String> kafkaParams = new HashMap<String, String>();
+        Map<String, String> kafkaParams = new HashMap<>();
 
         kafkaParams.put(
                "metadata.broker.list", "spark.don.com:9092"
         );
 
-        Set<String> topics = new HashSet<String>();
+        Set<String> topics = new HashSet<>();
 
         topics.add("test");
 
@@ -47,30 +47,15 @@ public class KafkaDirectWordCountJava {
         );
 
         JavaDStream<String> words = original.flatMap(
-                new FlatMapFunction<Tuple2<String, String>, String>() {
-                    @Override
-                    public Iterable<String> call(Tuple2<String, String> stringStringTuple2) throws Exception {
-                        return Arrays.asList(stringStringTuple2._2().split(" "));
-                    }
-                }
+                (FlatMapFunction<Tuple2<String, String>, String>) stringStringTuple2 -> Arrays.asList(stringStringTuple2._2().split(" ")).iterator()
         );
 
         JavaPairDStream<String, Integer> pairs = words.mapToPair(
-                new PairFunction<String, String, Integer>() {
-                    @Override
-                    public Tuple2<String, Integer> call(String s) throws Exception {
-                        return new Tuple2<String, Integer>(s, 1);
-                    }
-                }
+                (PairFunction<String, String, Integer>) s -> new Tuple2<>(s, 1)
         );
 
         JavaPairDStream<String, Integer> wordcount = pairs.reduceByKey(
-                new Function2<Integer, Integer, Integer>() {
-                    @Override
-                    public Integer call(Integer v1, Integer v2) throws Exception {
-                        return v1 + v2;
-                    }
-                }
+                (Function2<Integer, Integer, Integer>) (v1, v2) -> v1 + v2
         );
 
         wordcount.print();

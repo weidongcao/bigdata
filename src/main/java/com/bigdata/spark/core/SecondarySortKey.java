@@ -1,4 +1,4 @@
-package bigdata.spark.core;
+package com.bigdata.spark.core;
 
 import scala.Serializable;
 import scala.math.Ordered;

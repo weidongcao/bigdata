@@ -1,4 +1,4 @@
-package bigdata.hive;
+package com.bigdata.hive;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

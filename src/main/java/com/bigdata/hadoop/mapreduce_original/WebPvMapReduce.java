@@ -1,4 +1,4 @@
-package bigdata.hadoop.mapreduce_original;
+package com.bigdata.hadoop.mapreduce_original;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;

@@ -1,4 +1,4 @@
-package bigdata.spark.core;
+package com.bigdata.spark.core;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
@@ -37,7 +37,7 @@ public class TransformationOperationJava {
         //并行化集合，创建初始RDD
         JavaRDD<Integer> numRDD = sc.parallelize(numbers);
 
-        /**
+        /*
          * 使用map算子操作，将集合中的每个元素都乘以2
          * map算子是对任何类型的RDD都可以调用的
          * 在java中，map算子接收的参数是Function对象
@@ -47,19 +47,11 @@ public class TransformationOperationJava {
          * 一个新的元素，所有新的元素就会组成一个新的RDD
          */
         JavaRDD<Integer> multipleNumRDD = numRDD.map(
-                new Function<Integer, Integer>() {
-                    public Integer call(Integer v1) throws Exception {
-                        return v1 * 2;
-                    }
-                }
+                (Function<Integer, Integer>) v1 -> v1 * 2
         );
 
         //打印新的RDD
-        multipleNumRDD.foreach(new VoidFunction<Integer>() {
-            public void call(Integer integer) throws Exception {
-                System.out.println(integer);
-            }
-        });
+        multipleNumRDD.foreach((VoidFunction<Integer>) integer -> System.out.println(integer));
 
         //关闭JavaSparkContext
         sc.close();
@@ -80,20 +72,10 @@ public class TransformationOperationJava {
         JavaRDD<Integer> numRDD = sc.parallelize(nums, 1);
 
         JavaRDD<Integer> filterNumRDD = numRDD.filter(
-                new Function<Integer, Boolean>() {
-                    @Override
-                    public Boolean call(Integer v1) throws Exception {
-                        return v1 % 2 == 0;
-                    }
-                }
+                (Function<Integer, Boolean>) v1 -> v1 % 2 == 0
         );
 
-        filterNumRDD.foreach(new VoidFunction<Integer>() {
-            @Override
-            public void call(Integer integer) throws Exception {
-                System.out.println("integer = [" + integer + "]");
-            }
-        });
+        filterNumRDD.foreach((VoidFunction<Integer>) integer -> System.out.println("integer = [" + integer + "]"));
 
         sc.close();
     }

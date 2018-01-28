@@ -1,4 +1,4 @@
-package bigdata.spark.core;
+package com.bigdata.spark.core;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -28,33 +28,18 @@ public class WordCountJava {
 
         //执行我们之前做过的单词计数
         JavaRDD<String> words = lines.flatMap(
-                new FlatMapFunction<String, String>() {
-                    @Override
-                    public Iterable<String> call(String s) throws Exception {
-                        return Arrays.asList(s.split("\t"));
-                    }
-                }
+                (FlatMapFunction<String, String>) s -> Arrays.asList(s.split("\t")).iterator()
         );
 
         JavaPairRDD<String, Integer> pairs = words.mapToPair(
-                new PairFunction<String, String, Integer>() {
-                    @Override
-                    public Tuple2<String, Integer> call(String s) throws Exception {
-                        return new Tuple2<String, Integer>(s, 1);
-                    }
-                }
+                (PairFunction<String, String, Integer>) s -> new Tuple2<>(s, 1)
         );
 
         JavaPairRDD<String, Integer> wordcount = pairs.reduceByKey(
-                new Function2<Integer, Integer, Integer>() {
-                    @Override
-                    public Integer call(Integer v1, Integer v2) throws Exception {
-                        return v1 + v2;
-                    }
-                }
+                (Function2<Integer, Integer, Integer>) (v1, v2) -> v1 + v2
         );
 
-        /**
+        /*
          *到这里为止，就得到了每个单词出现的次数
          *但是问题是我们的新需求，是要按照每个单词出现的次数的顺序，降序排列
          * WordCount RDD内的元素是什么？应该是这种格式的吧：（hello, 3) （you, 2)
@@ -62,12 +47,7 @@ public class WordCountJava {
          * 进行Key-Value的反转映射
          */
         JavaPairRDD<Integer, String> countWords = wordcount.mapToPair(
-                new PairFunction<Tuple2<String, Integer>, Integer, String>() {
-                    @Override
-                    public Tuple2<Integer, String> call(Tuple2<String, Integer> stringIntegerTuple2) throws Exception {
-                        return new Tuple2<Integer, String>(stringIntegerTuple2._2, stringIntegerTuple2._1);
-                    }
-                }
+                (PairFunction<Tuple2<String, Integer>, Integer, String>) stringIntegerTuple2 -> new Tuple2<>(stringIntegerTuple2._2, stringIntegerTuple2._1)
         );
 
         //按照key进行排序
@@ -75,24 +55,14 @@ public class WordCountJava {
 
         //再次将Value-key进行反转映射
         JavaPairRDD<String, Integer> sortedWordCount = sortedCountwords.mapToPair(
-                new PairFunction<Tuple2<Integer, String>, String, Integer>() {
-                    @Override
-                    public Tuple2<String, Integer> call(Tuple2<Integer, String> integerStringTuple2) throws Exception {
-                        return new Tuple2<String, Integer>(integerStringTuple2._2, integerStringTuple2._1);
-                    }
-                }
+                (PairFunction<Tuple2<Integer, String>, String, Integer>) integerStringTuple2 -> new Tuple2<>(integerStringTuple2._2, integerStringTuple2._1)
         );
 
-        /**
+        /*
          * 按照单词出现次数排序后的意识计数
          */
         sortedWordCount.foreach(
-                new VoidFunction<Tuple2<String, Integer>>() {
-                    @Override
-                    public void call(Tuple2<String, Integer> stringIntegerTuple2) throws Exception {
-                        System.out.println(stringIntegerTuple2._1() + " => " + stringIntegerTuple2._2());
-                    }
-                }
+                (VoidFunction<Tuple2<String, Integer>>) stringIntegerTuple2 -> System.out.println(stringIntegerTuple2._1() + " => " + stringIntegerTuple2._2())
         );
 
 

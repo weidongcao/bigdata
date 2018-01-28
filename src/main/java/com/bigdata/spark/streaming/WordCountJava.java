@@ -1,4 +1,4 @@
-package bigdata.spark.streaming;
+package com.bigdata.spark.streaming;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
@@ -25,7 +25,7 @@ public class WordCountJava {
                 .setMaster("local[2]")
                 .setAppName("WordCount");
 
-        /**
+        /*
          *创建JavaStreamingContext对象
          * 该对象就类似于SparkCore中的JavaSparkContext，就类似于SparkSQL中的SQLContext
          * 该对象除了接收SparkConf对象之外还必须接收一个Batch Interval参数
@@ -34,7 +34,7 @@ public class WordCountJava {
          */
         JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(1));
 
-        /**
+        /*
          * 首先创建输入DStream，代表了一个从数据源（比如Kafka、socket）来的持续不断的实时数据流
          * 调用JavaStreamingContext的socketTextStream()方法可以创建一个数据源为Socket网络端口的数据流
          * JavaReceiverInputStream代表了一个输入的DStream
@@ -42,53 +42,38 @@ public class WordCountJava {
          */
         JavaReceiverInputDStream<String> lines = jssc.socketTextStream("spark.don.com", 9999);
 
-        /**
+        /*
          * 到这是为止可以理解为JavaReceiverInputStream中的每隔一秒会有一个RDD其中封了这一秒改善过来的数据
          * RDD的元素类型为String，即一行一行的文本
          * 所以这里JavaReceiverInputStream的泛型类型<String>，其实就代表了它底层的RDD的泛型类型
          */
 
-        /**
+        /*
          * 开始对接收到的数据执行计算使用SparkCore提供的算子，执行应用在DStream中即可
          * 在底层实际上会对DStream中的一个一个的RDD执行我们应用在DStream上的算子
          * 产生的新的RDD会作为新的DStream中的RDD
          */
         JavaDStream<String> words = lines.flatMap(
-                new FlatMapFunction<String, String>() {
-                    @Override
-                    public Iterable<String> call(String s) throws Exception {
-                        return Arrays.asList(s.split(" "));
-                    }
-                }
+                (FlatMapFunction<String, String>) s -> Arrays.asList(s.split(" ")).iterator()
         );
 
-        /**
+        /*
          * 这个时候每秒的数据一行一行的文本就会被拆分为多个单词，words DStream中的RDD的元素类型
          * 即为一个一个的单词
          */
         JavaPairDStream<String, Integer> pairs = words.mapToPair(
-                new PairFunction<String, String, Integer>() {
-                    @Override
-                    public Tuple2<String, Integer> call(String s) throws Exception {
-                        return new Tuple2<String, Integer>(s, 1);
-                    }
-                }
+                (PairFunction<String, String, Integer>) s -> new Tuple2<>(s, 1)
         );
 
-        /**
+        /*
          * 这里正好说明一下，其实大家可以看到，用Spark Streaming开发程序，和SparkCore很像
          * 唯一不同的是SparkCore中的JAVARDD、JavaPairRDD都变成了JavaDStream、JavaPairDStream
          */
         JavaPairDStream<String, Integer> wordCounts = pairs.reduceByKey(
-                new Function2<Integer, Integer, Integer>() {
-                    @Override
-                    public Integer call(Integer v1, Integer v2) throws Exception {
-                        return v1 + v2;
-                    }
-                }
+                (Function2<Integer, Integer, Integer>) (v1, v2) -> v1 + v2
         );
 
-        /**
+        /*
          * 至上为止，我们就实现了实时的wordcount程序了
          * 大家总结一下思路，加深一下印象
          * 每秒钟发送到指定socket端口上的数据都会被lines DStream接收到
@@ -110,7 +95,7 @@ public class WordCountJava {
         wordCounts.print();
 
 
-        /**
+        /*
          * 首先对JavaStreamingContext进行一下后续处理
          * 必须调用JavaStreamingContext的start()方法，整个SparkStreaming Application都会启动执行
          * 否则是不会执行的

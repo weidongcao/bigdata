@@ -1,4 +1,4 @@
-package bigdata.spark.streaming;
+package com.bigdata.spark.streaming;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
@@ -11,12 +11,13 @@ import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import scala.Tuple2;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Created by Administrator on 2016/10/25.
  */
 public class HDFSWordCountJava {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SparkConf conf = new SparkConf()
                 .setMaster("local[2]")
                 .setAppName("HDFSWordCount");
@@ -35,8 +36,8 @@ public class HDFSWordCountJava {
         JavaDStream<String> words = original.flatMap(
                 new FlatMapFunction<String, String>() {
                     @Override
-                    public Iterable<String> call(String s) throws Exception {
-                        return  Arrays.asList(s.split(" "));
+                    public Iterator<String> call(String s) throws Exception {
+                        return  Arrays.asList(s.split(" ")).iterator();
                     }
                 }
         );

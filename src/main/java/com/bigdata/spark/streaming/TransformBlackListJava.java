@@ -1,10 +1,10 @@
-package bigdata.spark.streaming;
+package com.bigdata.spark.streaming;
 
-import com.google.common.base.Optional;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.Optional;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.streaming.Durations;
@@ -36,7 +36,7 @@ public class TransformBlackListJava {
         List<Tuple2<String, Boolean>> blacklist = new ArrayList<Tuple2<String, Boolean>>();
         blacklist.add(new Tuple2<String, Boolean>("huan", true));
 
-        final JavaPairRDD<String, Boolean> blackListRDD = jssc.sc().parallelizePairs(blacklist);
+        final JavaPairRDD<String, Boolean> blackListRDD = jssc.sparkContext().parallelizePairs(blacklist);
 
         JavaReceiverInputDStream<String> adsClickLogDStream = jssc.socketTextStream("spark.don.com", 9999);
 
@@ -90,7 +90,11 @@ public class TransformBlackListJava {
         validAdsClickLogDStream.print();
 
         jssc.start();
-        jssc.awaitTermination();
+        try {
+            jssc.awaitTermination();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         jssc.close();
     }
 }

@@ -1,4 +1,4 @@
-package bigdata.spark.core;
+package com.bigdata.spark.core;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -29,28 +29,16 @@ public class LineCount {
         //对lines RDD执行MapToPair牌子，将每一行映射为（line,1)的这种key-value对的格式
         //然后后面才能统计每一行次数
         JavaPairRDD<String, Integer> pairs = lines.mapToPair(
-                new PairFunction<String, String, Integer>() {
-                    public Tuple2<String, Integer> call(String s) throws Exception {
-                        return new Tuple2<String, Integer>(s, 1);
-                    }
-                }
+                (PairFunction<String, String, Integer>) s -> new Tuple2<>(s, 1)
         );
 
         //对Pairs RDD执行ReduceByKey算子，统计出每一行出现的叫次数
         JavaPairRDD<String, Integer> lineCounts = pairs.reduceByKey(
-                new Function2<Integer, Integer, Integer>() {
-                    public Integer call(Integer v1, Integer v2) throws Exception {
-                        return v1 + v2;
-                    }
-                }
+                (Function2<Integer, Integer, Integer>) (v1, v2) -> v1 + v2
         );
 
         //执行一个Action操作，Foreach，打印出第一行出现的次数
-        lineCounts.foreach(new VoidFunction<Tuple2<String, Integer>>() {
-            public void call(Tuple2<String, Integer> t) throws Exception {
-                System.out.println(t._1 + "     appears  " + t._2 + " times");
-            }
-        });
+        lineCounts.foreach((VoidFunction<Tuple2<String, Integer>>) t -> System.out.println(t._1 + "     appears  " + t._2 + " times"));
 
         //关闭JavaSparkContext
         sc.close();

@@ -1,4 +1,4 @@
-package bigdata.hive;
+package com.bigdata.hive;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hive.ql.exec.UDF;

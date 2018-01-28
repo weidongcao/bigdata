@@ -1,4 +1,4 @@
-package bigdata.spark.core;
+package com.bigdata.spark.core;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -20,37 +20,24 @@ public class SecondarySortJava {
                 .setMaster("local");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
-        JavaRDD<String> oraginal = sc.textFile("E://Workspaces//resource//TestData//wc_kv_comma.input");
+        JavaRDD<String> original = sc.textFile("E://Workspaces//resource//TestData//wc_kv_comma.input");
 
-        JavaPairRDD<SecondarySortKey, String> pairs = oraginal.mapToPair(
-                new PairFunction<String, SecondarySortKey, String>() {
-                    @Override
-                    public Tuple2<SecondarySortKey, String> call(String s) throws Exception {
-                        String[] str = s.split(",");
-                        SecondarySortKey key = new SecondarySortKey(str[0], Integer.valueOf(str[1]));
-                        return new Tuple2<SecondarySortKey, String>(key, s);
-                    }
+        JavaPairRDD<SecondarySortKey, String> pairs = original.mapToPair(
+                (PairFunction<String, SecondarySortKey, String>) s -> {
+                    String[] str = s.split(",");
+                    SecondarySortKey key = new SecondarySortKey(str[0], Integer.valueOf(str[1]));
+                    return new Tuple2<>(key, s);
                 }
         );
 
         JavaPairRDD<SecondarySortKey, String> sortedPairs = pairs.sortByKey(false);
 
         JavaRDD<String> sortedLines = sortedPairs.map(
-                new Function<Tuple2<SecondarySortKey, String>, String>() {
-                    @Override
-                    public String call(Tuple2<SecondarySortKey, String> v1) throws Exception {
-                        return v1._2();
-                    }
-                }
+                (Function<Tuple2<SecondarySortKey, String>, String>) Tuple2::_2
         );
 
         sortedLines.foreach(
-                new VoidFunction<String>() {
-                    @Override
-                    public void call(String s) throws Exception {
-                        System.out.println(s);
-                    }
-                }
+                (VoidFunction<String>) System.out::println
         );
         sc.close();
     }

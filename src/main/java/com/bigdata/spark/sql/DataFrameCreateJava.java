@@ -1,8 +1,8 @@
-package bigdata.spark.sql;
+package com.bigdata.spark.sql;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.DataFrame;
+import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.SQLContext;
 
 /**
@@ -17,7 +17,7 @@ public class DataFrameCreateJava {
 
         SQLContext sqlContext = new SQLContext(sc);
 
-        DataFrame df = sqlContext.read().json("hdfs://spark.don.com:8020/user/dong/data/students.json");
+        Dataset df = sqlContext.read().json("hdfs://spark.don.com:8020/user/dong/data/students.json");
 
         df.show();
     }

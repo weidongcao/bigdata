@@ -1,4 +1,4 @@
-package bigdata.hadoop.mapreduce_original;
+package com.bigdata.hadoop.mapreduce_original;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Partitioner;

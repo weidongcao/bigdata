@@ -1,4 +1,4 @@
-package bigdata.hadoop.mapreduceJoin;
+package com.bigdata.hadoop.mapreduceJoin;
 
 import org.apache.hadoop.io.Writable;
 

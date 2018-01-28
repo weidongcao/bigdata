@@ -1,4 +1,4 @@
-package bigdata.spark.core;
+package com.bigdata.spark.core;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -24,23 +24,13 @@ public class TopNJava {
         JavaRDD<String> original = sc.textFile("E://Workspaces//resource//TestData//number.txt");
 
         JavaPairRDD<Integer, String> pairs = original.mapToPair(
-                new PairFunction<String, Integer, String>() {
-                    @Override
-                    public Tuple2<Integer, String> call(String s) throws Exception {
-                        return new Tuple2<Integer, String>(Integer.valueOf(s), s);
-                    }
-                }
+                (PairFunction<String, Integer, String>) s -> new Tuple2<>(Integer.valueOf(s), s)
         );
 
         JavaPairRDD<Integer, String> sortedpairs = pairs.sortByKey(false);
 
         JavaRDD<Integer> sortedNums = sortedpairs.map(
-                new Function<Tuple2<Integer, String>, Integer>() {
-                    @Override
-                    public Integer call(Tuple2<Integer, String> v1) throws Exception {
-                        return v1._1();
-                    }
-                }
+                (Function<Tuple2<Integer, String>, Integer>) Tuple2::_1
         );
 
         List<Integer> sortedNumList = sortedNums.take(3);
