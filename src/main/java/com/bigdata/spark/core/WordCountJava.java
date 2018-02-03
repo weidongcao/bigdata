@@ -9,7 +9,8 @@ import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
 import scala.Tuple2;
-import scala.actors.threadpool.Arrays;
+
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2016/10/5.

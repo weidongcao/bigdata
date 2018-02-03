@@ -83,10 +83,10 @@ public class JDBCDataSourceJava {
 
         Dataset<Row> stuDF = sqlContext.createDataFrame(filterStu_rowRdd, structType);
 
-        Row[] rows = stuDF.collect();
-        for (Row row : rows) {
-            System.out.println(row);
-        }
+//        Row[] rows = stuDF.collect();
+//        for (Row row : rows) {
+//            System.out.println(row);
+//        }
 
         //将DataFrame中的数据保存到MySQL表中
         stuDF.javaRDD().foreach(
