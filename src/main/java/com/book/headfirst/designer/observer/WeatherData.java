@@ -1,6 +1,8 @@
 package com.book.headfirst.designer.observer;
 
+
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * 《Head First 设计模式》第2章观察者模式
@@ -9,8 +11,7 @@ import java.util.ArrayList;
  * Author: Weidong Cao
  * Created by Cao Wei Dong on 2018-04-03.
  */
-public class WeatherData implements Subject{
-    private ArrayList observers;
+public class WeatherData extends Observable {
 
     private float temperature;
 
@@ -18,32 +19,10 @@ public class WeatherData implements Subject{
 
     private float pressure;
 
-    public WeatherData() {
-        observers = new ArrayList();
-    }
-
-    @Override
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        int i = observers.indexOf(observer);
-        if (i >= 0) {
-            observers.remove(i);
-        }
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (int i = 0; i < observers.size(); i++) {
-            Observer observer = (Observer) observers.get(i);
-            observer.update(temperature, humidity, pressure);
-        }
-    }
+    public WeatherData() { }
 
     public void measurementsChanged() {
+        setChanged();
         notifyObservers();
     }
 
@@ -54,5 +33,15 @@ public class WeatherData implements Subject{
         measurementsChanged();
     }
 
-    //其他方法
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public float getHumidity() {
+        return humidity;
+    }
+
+    public float getPressure() {
+        return pressure;
+    }
 }
