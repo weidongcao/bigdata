@@ -1,4 +1,4 @@
-package com.book.headfirst.designer.command;
+package com.book.headfirst.designer.command.simpleremote;
 
 import java.io.Serializable;
 

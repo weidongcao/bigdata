@@ -1,4 +1,4 @@
-package com.book.headfirst.designer.command;
+package com.book.headfirst.designer.command.simpleremote;
 
 /**
  * 《Head First 设计模式》编程练习

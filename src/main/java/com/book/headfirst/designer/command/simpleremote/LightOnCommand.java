@@ -1,4 +1,4 @@
-package com.book.headfirst.designer.command;
+package com.book.headfirst.designer.command.simpleremote;
 
 /**
  * 《Head First 设计模式》第6章 命令模式
@@ -8,7 +8,7 @@ package com.book.headfirst.designer.command;
  * Time: 2018-04-17 06:45:50
  * Author: Weiodng Cao
  */
-public class LightOnCommand implements Command{
+public class LightOnCommand implements Command {
     Light light;
 
     public LightOnCommand(Light light) {
