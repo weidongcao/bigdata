@@ -1,14 +1,14 @@
-package com.book.headfirst.designer.command.simpleremote;
+package com.book.headfirst.designer.command.undo;
 
 import com.book.headfirst.designer.command.domain.Light;
 
 /**
- * 《Head First 设计模式》第6章 命令模式
- * 实现一个打开电灯的命令。
- * 根据厂商提供的类，Light类有两个方法：on()和off()。
+ * 《Head First 设计模式》编程练习
+ * 第6章 命令模式
+ * 实现undo()
  *
- * Time: 2018-04-17 06:45:50
- * Author: Weiodng Cao
+ * Time: 2018-04-20 06:43:10
+ * Created by Cao Wei Dong on 2018-04-20.
  */
 public class LightOnCommand implements Command {
     Light light;
@@ -20,5 +20,10 @@ public class LightOnCommand implements Command {
     @Override
     public void execute() {
         light.on();
+    }
+
+    @Override
+    public void undo() {
+        light.off();
     }
 }

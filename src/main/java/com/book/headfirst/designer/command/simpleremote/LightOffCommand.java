@@ -1,5 +1,7 @@
 package com.book.headfirst.designer.command.simpleremote;
 
+import com.book.headfirst.designer.command.domain.Light;
+
 /**
  * 《Head First 设计模式》第6章 命令模式
  * 关灯的命令

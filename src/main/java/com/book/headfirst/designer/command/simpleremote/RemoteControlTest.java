@@ -1,5 +1,7 @@
 package com.book.headfirst.designer.command.simpleremote;
 
+import com.book.headfirst.designer.command.domain.Light;
+
 /**
  * 《Head First 设计模式》编程练习
  * 第6章命令模式
@@ -11,7 +13,7 @@ package com.book.headfirst.designer.command.simpleremote;
 public class RemoteControlTest {
     public static void main(String[] args) {
         SimpleRemoteControl remote = new SimpleRemoteControl();
-        Light light = new Light();
+        Light light = new Light("alksdjf");
         LightOnCommand lightOn = new LightOnCommand(light);
 
         remote.setCommand(lightOn);

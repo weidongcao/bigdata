@@ -1,5 +1,7 @@
 package com.book.headfirst.designer.command.remote;
 
+import com.book.headfirst.designer.command.domain.Light;
+
 /**
  * 《Head First 设计模式》编程练习
  * 第6章 开灯对象

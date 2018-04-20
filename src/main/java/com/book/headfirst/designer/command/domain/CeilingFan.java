@@ -1,4 +1,4 @@
-package com.book.headfirst.designer.command.remote;
+package com.book.headfirst.designer.command.domain;
 
 /**
  * 《Head First 设计模式》编程练习

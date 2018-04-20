@@ -1,6 +1,10 @@
 package com.book.headfirst.designer.command.remote;
 
 
+import com.book.headfirst.designer.command.domain.CeilingFan;
+import com.book.headfirst.designer.command.domain.GarageDoor;
+import com.book.headfirst.designer.command.domain.Light;
+import com.book.headfirst.designer.command.domain.Stereo;
 import org.junit.Test;
 
 /**

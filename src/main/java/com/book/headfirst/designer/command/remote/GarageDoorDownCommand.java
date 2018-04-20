@@ -1,6 +1,8 @@
 package com.book.headfirst.designer.command.remote;
 
 
+import com.book.headfirst.designer.command.domain.GarageDoor;
+
 /**
  * 《Head First 设计模式》编程练习
  * 第6章 命令模式

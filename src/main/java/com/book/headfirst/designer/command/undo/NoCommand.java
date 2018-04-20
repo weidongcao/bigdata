@@ -1,6 +1,5 @@
-package com.book.headfirst.designer.command.remote;
+package com.book.headfirst.designer.command.undo;
 
-import com.book.headfirst.designer.command.remote.Command;
 
 /**
  * 《Head First 设计模式》编程练习
@@ -13,6 +12,11 @@ import com.book.headfirst.designer.command.remote.Command;
 public class NoCommand implements Command {
     @Override
     public void execute() {
+
+    }
+
+    @Override
+    public void undo() {
 
     }
 }

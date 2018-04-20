@@ -1,4 +1,4 @@
-package com.book.headfirst.designer.command.remote;
+package com.book.headfirst.designer.command.domain;
 
 import java.io.Serializable;
 
