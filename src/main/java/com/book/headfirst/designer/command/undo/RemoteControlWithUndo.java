@@ -1,6 +1,8 @@
 package com.book.headfirst.designer.command.undo;
 
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.IntStream;
 
 /**
@@ -19,6 +21,7 @@ public class RemoteControlWithUndo {
     public RemoteControlWithUndo() {
         onCommands = new Command[7];
         offCommands = new Command[7];
+        Arrays.sort(new Object[3]);
 
         Command noCommand = new NoCommand();
         IntStream.range(0, 7).forEach(i -> onCommands[i] = noCommand);
