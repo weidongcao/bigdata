@@ -9,8 +9,4 @@ package com.book.headfirst.designer.combined;
  * Created by Cao Wei Dong on 2018-05-04.
  */
 public interface ControllerInterface {
-//    BeatModelInterface model;
-
-//    DJView view;
-
 }
