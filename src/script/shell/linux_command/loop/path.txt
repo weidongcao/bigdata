@@ -1,0 +1,22 @@
+/usr/share/scala/bin:
+	/usr/share/scala/bin
+/usr/java/default/bin:
+	/usr/java/default/bin
+/usr/local/bin:
+	/usr/local/bin
+/usr/bin:
+	/usr/bin
+/usr/local/sbin:
+	/usr/local/sbin
+/usr/sbin:
+	/usr/sbin
+/opt/shortcut/hadoop/sbin:
+	/opt/shortcut/hadoop/sbin
+/opt/shortcut/hadoop/bin:
+	/opt/shortcut/hadoop/bin
+/opt/shortcut/spark/sbin:
+	/opt/shortcut/spark/sbin
+/opt/shortcut/spark/bin:
+	/opt/shortcut/spark/bin
+/home/dong/.local/bin:
+/home/dong/bin:
