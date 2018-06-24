@@ -1,0 +1,26 @@
+Top Ten Disk Space Usage
+for  /var/log /opt Directories
+
+The /var/log Directory:
+1:	5060	/var/log/anaconda
+2:	2556	/var/log/sa
+3:	1332	/var/log
+4:	24	/var/log/cups
+5:	8	/var/log/tuned
+6:	0	/var/log/sssd
+7:	0	/var/log/speech-dispatcher
+8:	0	/var/log/samba
+9:	0	/var/log/rhsm
+10:	0	/var/log/qemu-ga
+
+The /opt Directory:
+1:	709196	/opt/software
+2:	193512	/opt/modules/spark-2.1.0-bin-hadoop2.6/jars
+3:	34924	/opt/modules/hadoop-2.6.5/share/hadoop/tools/lib
+4:	28700	/opt/modules/hadoop-2.6.5/share/hadoop/httpfs/tomcat/webapps/webhdfs/WEB-INF/lib
+5:	22396	/opt/modules/hadoop-2.6.5/share/hadoop/common/jdiff
+6:	20196	/opt/modules/hadoop-2.6.5/share/hadoop/common/lib
+7:	19920	/opt/modules/hadoop-2.6.5/share/hadoop/kms/tomcat/webapps/kms/WEB-INF/lib
+8:	12792	/opt/modules/hadoop-2.6.5/share/hadoop/yarn/lib
+9:	10916	/opt/modules/hadoop-2.6.5/share/hadoop/hdfs
+10:	9208	/opt/modules/hadoop-2.6.5/share/hadoop/hdfs/lib
