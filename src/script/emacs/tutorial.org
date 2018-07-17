@@ -1,0 +1,35 @@
+* 标题一
+** 
+** 标题二
+*** 标题三
++ treeroot
+  + branch1
+  + branch2
+
+#+BEGIN_SRC 
+  ;; Your code goes here
+  ;; 你的代码写在这里
+#+END_SRC
+
+(require 'org)
+(setq org-src-fontify-natively t)
+
+# -*- org -*-
+#+TITLE: org-mode备忘录
+#+AUTHOR: ZGUANG@LZU
+#+STARTUP: overview
+#+STARTUP: content
+#+STARTUP: showall
+#+STARTUP: showeverything
+#+STARTUP: indent
+#+TODO: TODO STARTED | DONE
+<<目录位置>>
+* 列表
+  + 选项1
+  + 选项2
+
+** aaa
+
+- sss
+* 表格
+#+TBLNANE:简单表格
