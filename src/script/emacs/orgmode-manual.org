@@ -1001,3 +1001,28 @@ All lines between these markers are exported literally
 | C-c C-e c | 从org-agenda-file中的所有文件创建一个圈套的iCalendar文件,并写入到org-combined-agenda-icalendar-file指定的文件中. |
 |-----------+------------------------------------------------------------------------------------------------------------------|
 
+* 13 发布
+Org包含一个发布管理系统,可以配置一个由相互链接的Org文件组成的工程项目的自动向
+HTML转换.你也可以设置Org,将导出的HTML页面和相应的附件如图片,源代码文件等自动上传
+到服务器.
+下面是一个例子:
+#+BEGIN_SRC 
+(setq org-publish-project-alist
+     '(("org"
+        :base-directory "~/org/"
+	:publishing-directory "~/public_html"
+	:section-numbers nil
+	:table-of-contents nil
+	:style "<link rel=\"stylesheet\"
+	       href=\"../other/mystyle.css\"
+	       type=\"text/css\"/>)))
+#+END_SRC
+| C-c C-e C | 提示指明一个项目,将所有的文件发布 |
+|-----------+-----------------------------------|
+| C-c C-e P | 发布包含当前文件的项目            |
+|-----------+-----------------------------------|
+| C-c C-e F | 只发布当前文件.                   |
+|-----------+-----------------------------------|
+| C-c C-e E | 发布所有项目                      |
+|-----------+-----------------------------------|
+
