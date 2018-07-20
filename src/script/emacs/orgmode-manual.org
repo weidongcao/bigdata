@@ -795,3 +795,130 @@ C-c a s      这个查找方式可以让你通过匹配子串或者用逻辑表�
 | C-c a v | 同搜索C-c a u,但是搜索范围只限于同时也是TODO项的标题         |
 |---------+--------------------------------------------------------------|
 
+* 11.准备导出
+当导出Org模式的文档时,导出器在后端尽可能准确地反映出文档的结构.由于所要导出的目标文档像HTML,LaTeX和DocBook具有丰富的格式,
+Org为富导出(Rich Export)提供了一些规则.这节概述了Org模式缓冲区中的准备规则.
+** 11.1结构的组成元素
+文档标题
+导出文件的标题在特定行给出:
+#+BEGIN_SRC 
+#+TITLE: This is the title of the document
+#+END_SRC
+*** 标题和章节
+第二章描述的大纲结构确定了导出文档的结构基础.然而由于大纲结构也用于列表和任务,
+因此只有前三个级别用作标题.更深的级别会被看作项目列表.你可以通过变量
+org-export-headline-levels在全局设置这个开头,或者只是在单个文件中设置:
+#+BEGIN_SRC
+#+OPTIONS: H:4
+#+END_SRC
+
+*** 目录表
+目录表通常会直接插入在文档第一个标题之前.
+#+BEGIN_SRC 
+#+OPTIONS:toc:2    (目录中只显示二级标题)
+#+OPTIONS:toc:nil  (无目录)
+#+END_SRC
+
+*** 段落/分行和引用
+段落之间至少要有一空行.如果你想实现段内分行,可以在行后加上"\\"
+要想在一个区域实现分行,而其他使用正常格式,你可以使用下面的构造,
+它也可以用来实现诗歌的格式:
+#+BEGIN_SRC 
+ Great clouds overhead
+ Tiny black birds rise and fall
+ snow covers Emacs
+     -- AlexSchroeder
+#+END_SRC
+当从另外一个文档中引用一段话时通常会让它左右都缩进.在Org文档中可以这样作引用.
+#+BEGIN_SRC 
+Everything should be made as simple as possible,
+but not any simpler -- Albert Einstein
+#+END_SRC
+如果你想让某些文本居中,可以这样:
+#+BEGIN_SRC 
+Everything should be made as simple as possible, \\
+but not any simpler
+#+END_SRC
+
+*** 强调和等宽
+你可以让文字粗体,斜体,下划线,代码,以及逐文本,如果必需,也可以'划掉'.
+代码和逐文本的字符串不会以Org模式的语法格式来处理,会被逐字输出.想要插入一个水平格
+尺,用一个只含有破折号的行来实现,要求至少有5个破折号.
+
+*** 注释行
+以'#'位于第0列的行会被看作注释,不会被导出.如果你想要一个缩进的行也被作为注释,
+用"#+"开头.另外以关键字"COMMENT"开头的子树整个树都不会被导出.最后,
+被"#+BEGIN_COMMENT "..." #+END_COMMENT"包围的整个区域也都不会被导出.
+| C-c ; | 在一个项的开头触发COMMENT关键字 |
+
+** 11.2图片和表格
+对于Org模式的表格,以竖起线开头的行会成为表格的首行.你可以在表格前面用下面几行为
+表格指定标题和标签,以方便交叉引用,在文本中可以用\ref{tab:basic-data}来引用它:
+#+BEGIN_SRC 
+#+CAPTION: This is the caption for the next table (or link)
+#+LABEL: tbl:basic-data
+| ... | ...|
+|-----+----|
+#+END_SRC
+一些后端(HTML,LATEX,以及DocBook)允许直接插入图片到导出的文档中,Org也可以,只要图片
+的链接不含有描述部分就行了,例如:
+#+BEGIN_SRC 
+[[./img/a.jpg]]
+#+END_SRC
+如果你希望为图片定义一个标题,或者一个标签方便内部交叉引用,可以让图片单独一行,
+在前面加上:
+#+BEGIN_SRC 
+#+CAPTION: This is the caption for the nexd figure link (or table)
+#+LABEL: fig:SED-HR4049
+[[./img/a.jpg]]
+#+END_SRR
+你也可以为图形指定一些其他的特性,但是由于这与后端密切相关,可以参考关于特定后端的
+章节获得详细信息.
+
+** 11.3纯文本的例子
+你可以包含进来一些纯文本的例子,这不属于准备的范畴.这些例子会等宽排版,所以适用于代码
+以及其他类似的情况:
+#+BEGIN_SRC 
+#+BEGIN_EXAMPLE
+Some example from a text file
+#+END_EXAMPLE
+#+END_SRC
+为了化,一些小型的例子也可以将各行以冒号开头.冒号前面可以有空格:
+#+BEGIN_SRC 
+Here is an example
+: Some example from a text file.
+#+END_SRC
+对于一些程序设计语言的源代码以及一些其他的文本,可以被Emacs的字体锁(Font-lock)
+特殊标记,你也可以让它们像在Emacs的缓冲区中那样显示:
+#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
+(defun org-xor  (a b)
+    "Exclusive or."
+    (if a (not b) b))
+.#+END_SRC
+#+END_SRC
+为了能在支持这种语言的专门的缓冲区中编辑例子,可以用C-c,启动和退出编辑缓冲区.
+
+** 11.4包含文件
+当导出文档时,你可以包含其他文件中的内容,比如,想包含你的".emacs"文件,你可以用:
+#+BEGIN_SRC 
+#+INCLUDE: "~/.emacs" src emacs-lisp
+#+END_SRC
+可选的第二个第三个参数是组织方式(例如,"quote", "example",或者"src"),如果是"src",
+语言用来格式化内容.组织方式是可选的,如果不给出,文本会被当作Org模式的正常处理.用
+C-c,可以访问包含的文本.
+
+** 11.5嵌入LaTex
+对于需要包含数学符号和特殊方程的科学笔记,Org模式支持嵌入LaTeX代码到文件中.你可以
+直接使用类TeX的宏来输入特殊符号,输入方程,或者整个LaTeX,或者整个LaTeX.
+#+BEGIN_SRC 
+Angles are written as Greek letters \alpha, \beta and \gamma. The mass if the
+sun is M_sun = 1.989 x 10^30 kg.The radius of the sun is R_{sun} = 6.96 x 10^8 m.
+If $a^2=b$ and $b=2$, then the solution must be either $a=+\sqrt{2}$ or $a=-\sqrt{2}$.
+
+\begin{equation}
+x=\sqrt{b}
+\end{equation}
+#+END_SRC
+特殊设置之后,导出HTML时LaTeX代码片断会生成图片并包含进来.
+
