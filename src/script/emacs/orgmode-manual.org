@@ -922,3 +922,82 @@ x=\sqrt{b}
 #+END_SRC
 特殊设置之后,导出HTML时LaTeX代码片断会生成图片并包含进来.
 
+* 12导出
+Org模式文档可以导出成多种格式:ASCII用于包含在邮件中;HTML用来发布到网页上;
+LaTeX/PDF用来打印出漂亮的文档;DocBook通过DocBook工具转换成其他各种各样的
+格式.也可以导出成iCalendar格式,将计划信息并入到桌面日历中.
+** 12.1 导出选项
+导出器能识别缓冲区中提供信息的特殊行.这样行可以放在文件中, 的任何地方.整个集合
+可以用C-c C-e t插入到缓冲区中.
+| C-c C-c t | 插入导出选项模板,见下面的例子 |
+#+BEGIN_SRC 
+#+TITLE:      The Title To Be Shown (Default Is The Buffer Name)
+#+AUTHOR:     The author (default taken from user-full-name)
+#+DATE:       a date, fixed, of a format string for format-time-string
+#+EMAIL:      His/her email address (default form user-mail-address)
+#+DESCRIPTION:The Page description, e.g. for the XHTML meta tag
+#+KEYWORDS    The page keywords, e.g. for the XHTML meta tag
+#+LANGUAGE:   Language for HTML, e.g. 'en' (org-export-default-language)
+#+TEXT:       Some descriptive text to be inserted at the beginning.
+#+TEXT:       Several lines may be given.
+#+OPTIONS:    H:2 num:t toc:t \n:nil @:t ::t |:t ^:t f:t Text ...
+#+LINK_UP:    The ''up'' link of an exported page
+#+LINK_HOME:  The ''home'' link of an exported page
+#+LATEX_HEADER:Extra line(s) for the LaTeX header, like \usepackage{xyz}
+#+END_SRC
+
+** 12.2 导出调试器
+所有的导出命令都可以通过导出调试器来使用,调试器是一个前缀快捷键,它会提示输入
+一个字母来指定命令.通常整个文件都会被导出,但是如果选中区域包含大纲树,就会导出
+大纲树,并以第一个标题作为文件标题
+| C-c C-e | 用来导出和发布的调试器 |
+
+** 12.3 ASCII/Latin-1/UTF-8的导出
+ASCII导出功能能给Org文件提供一个简单易读的版本,它只包含纯ASCII文本.Latin-1和
+UTF-8导出用它们能编码的特殊字符扩展了文件的功能.
+| C-c C-e a            | 导出ASCII文件                      |
+|----------------------+------------------------------------|
+| C-c C-e n和C-c C-e N | 和上面的命令一样,但是用Latin-1编码 |
+|----------------------+------------------------------------|
+| C-c C-e u和C-c C-e U | 和上面的命令一新,但是用UTF-8编码   |
+|----------------------+------------------------------------|
+
+** 12.4 HTML的导出
+| C-c C-e h | 导出HTML文件               |
+|-----------+----------------------------|
+| C-c C-e b | 导出HTML文件并用浏览器打开 |
+|-----------+----------------------------|
+想要将HTML以纯文本方式导出文件,可以:
+#+BEGIN_SRC 
+#+HTML:Literal HTML Code for export
+#+END_SRC
+或者
+#+BEGIN_SRC 
+#+BEGIN_HTML
+All lines between these markers are exported literally
+#+END_HTML
+#+END_SRC
+
+** 12.5LaTeX和PDF的导出
+| C-c C-e l | 导出LaTeX文件                      |
+|-----------+------------------------------------|
+| C-c C-e p | 导出LaTeX文件,并处理成PDF文件      |
+|-----------+------------------------------------|
+| C-c C-e d | 导出LaTeX文件,处理成PDF文件,并打开 |
+|-----------+------------------------------------|
+默认,LaTeX输出是使用Article类型.但是你可以在文件中通过选项#+LaTeX_CLASS:myclass
+来改变,但是类型必须是org-export-latex-classes中列出的.
+第11.5节撰述的内嵌的LaTeX可以正确地插入到LaTeX文件中.跟HTML导出器相似,也可以通过
+#+LaTeX:和#+BEGIN_LaTeX ... #+END_LaTeX来加入纯文本的LaTeX代码.
+
+** 12.6 DocBook的导出
+| C-c C-e D | 导出DocBook文件 |
+跟HTML导出器相似,也可以通过#+DocBook:和#+BEGIN_DocBook ... #+END_DocBook结构来加
+入纯文本的DocBook代码.
+
+** 12.7iCalendar的导出
+| C-c C-e i | 在一个".ice"文件中为当前文件创建iCaalendar项.                                                                    |
+|-----------+------------------------------------------------------------------------------------------------------------------|
+| C-c C-e c | 从org-agenda-file中的所有文件创建一个圈套的iCalendar文件,并写入到org-combined-agenda-icalendar-file指定的文件中. |
+|-----------+------------------------------------------------------------------------------------------------------------------|
+
