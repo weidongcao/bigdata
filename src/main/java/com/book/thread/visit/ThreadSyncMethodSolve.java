@@ -1,7 +1,7 @@
 package com.book.thread.visit;
 
 /**
- * 《Java多线程编程核心技术》第1章 Java多线程技能
+ * 《Java多线程编程核心技术》第2章 Java多线程技能
  * 2.2.3 用同步代码块解决同步方法的弊端
  * Page： 76
  * 当两个并发线程访问同一个对象Object中的Synchronized(this)同步代码块时，
