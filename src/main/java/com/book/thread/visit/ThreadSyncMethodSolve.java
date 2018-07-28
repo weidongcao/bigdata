@@ -11,16 +11,17 @@ package com.book.thread.visit;
  * Time:2018-07-26 06:17:46
  */
 public class ThreadSyncMethodSolve {
-    protected static long beginTime1;
-    protected static long endTime1;
-    protected static long beginTime2;
-    public static long endTime2;
-    private String getData1;
-    private String getData2;
-    public  void doLongTimeTask(){
+    private static long beginTime1;
+    private static long endTime1;
+    private static long beginTime2;
+    private static long endTime2;
+
+    private void doLongTimeTask(){
         try{
             System.out.println("Begin Task");
             Thread.sleep(3000 );
+            String getData1;
+            String getData2;
             synchronized(this){
                 getData1 = "长时间处理任务后从远程返回的值 1 ThreadName= " + Thread.currentThread().getName();
                 getData2 = "长时间处理任务后从远程返回的值 2 ThreadName= " + Thread.currentThread().getName();
