@@ -1,0 +1,170 @@
+* 二叉树的定义
+#+BEGIN_SRC 
+二叉树(Binary Tree)是结点的有限集合，这个集合或者空，或者由一个根及两个互不相交的称为这个根的左子树或右子树构成。
+从定义可以看出，二叉树包括：
+1.空树
+2.只有一个根节点
+3.只有左子树
+4.只有一个右子树
+5.左右子树都存在
+有且权有这5种表现形式
+#+END_SRC
+
+* 二叉树与一般树的区别
+
+1. 一般树的子树不分次序，而二叉树的子树有左右之分。
+2. 由于二叉树也是树的一般，所以大部分的树的概念对二叉树也适用
+3. 二叉树的存贮：每个节点只需要两个指针（左节点，右节点），有的为了操作方便也会
+增加指向父级节点的指针，除了指针域以外，不会有一个数据域用来保存当前节点的信息
+
+* 二叉树的特点
+1. 在二叉树的第i层上至多有2^(i-1)个节点(i >= 1)
+2. 深度为k的二叉树至多有2^k - 1个节点(k >= 1)
+3. 对于任意王权二叉树T而，其叶子节点为N0，度为2的节点数目为N2，则有N0=N2+1
+4. 具有n个节点的完全二叉树的深度
+
+* 二叉树的遍历
+二叉树的遍历分为三种：
+1. 前序遍历 --> 按照"根左右",先遍历根节点,再遍历左子树,再遍历右子树
+2. 中序遍历 --> 按照"左根右",先遍历左子树,再遍历根节点,再遍历右子树
+3. 后序遍历 --> 按照"左右根",先遍历左子树,再遍历根节点,再遍历右子树
+其中前,后,中指的是每次遍历时候的根节点被遍历的顺序
+
+* 二叉树遍历的Java实现.
+#+BEGIN_SRC 
+/**
+ * 二叉树的Java实现
+ * Author：wedo
+ * Time：2018-08-02 16:31:39
+ */
+public class Tree {
+    private Node root;
+    private List<Node> list = new ArrayList<>();
+
+    public Tree() {
+        init();
+    }
+
+    public void init() {
+        Node x = new Node("X", null, null);
+        Node y = new Node("Y", null, null);
+        Node d = new Node("D", x, y);
+        Node e = new Node("E", null, null);
+        Node f = new Node("F", null, null);
+        Node c = new Node("C", e, f);
+        Node b = new Node("B", d, null);
+        Node a = new Node("A", b, c);
+        root = a;
+    }
+
+    private class Node {
+        private String data;
+        //定义指向左子树的指针
+        private Node lchild;
+        //定义指向右子树的指针
+        private Node rchild;
+
+        public Node(String data, Node lchild, Node rchild) {
+            this.data = data;
+            this.lchild = lchild;
+            this.rchild = rchild;
+        }
+    }
+
+    /**
+     * 对该二叉树进行前序遍历
+     * 结果存储到list中
+     *
+     * @param node
+     */
+    public void preOrder(Node node) {
+        //先将根节点存入list
+        list.add(node);
+        //如果左子树不为空继续往左找，在递归调用方法的时候一直会将子树的根存
+        // 入list，这就做到了先遍历根节点
+        if (node.lchild != null) {
+            preOrder(node.lchild);
+        }
+        //无论走到哪一层，只要当前节点左子树为空，那么就可以在右子树上遍历，
+        //保证了桶左右的遍历顺序
+        if (node.rchild != null) {
+            preOrder(node.rchild);
+        }
+    }
+
+    /**
+     * 对该二叉树进行中序遍历，
+     * 结果存储到list中
+     *
+     * @param node
+     */
+    public void inOrder(Node node) {
+        if (node.lchild != null) {
+            inOrder(node.lchild);
+        }
+        list.add(node);
+        if (node.rchild != null) {
+            inOrder((node.rchild));
+        }
+    }
+
+    /**
+     * 对该二叉树进行后序遍历
+     * 结果存储到list中
+     *
+     * @param node
+     */
+    public void postOrder(Node node) {
+        if (node.lchild != null) {
+            postOrder(node.lchild);
+        }
+        if (node.rchild != null) {
+            postOrder(node.rchild);
+        }
+        list.add(node);
+    }
+
+    /**
+     * 返回当前数的深度
+     * 说明：
+     * 1、如果一棵树只有一个结点，它的深度为1
+     * 2、如果根结果只有左子树而没有右子树，那么树的尝试是其左子树的深度加1；
+     * 3、如果根结点只有右子树而没有左子树，那么树的尝试应该是其右子树的深度加1；
+     * 4、如果既有右子树又有左子树，那么该树的尝试就是其左右子树深度的较大值加1；
+     * @param node
+     * @return
+     */
+    public int getTreeDepth(Node node){
+        if (node.lchild == null && node.rchild == null) {
+            return 1;
+        }
+        int left = 0, right = 0;
+        if (node.lchild != null) {
+            left = getTreeDepth(node.lchild);
+        }
+        if (node.rchild != null) {
+            right = getTreeDepth(node.rchild);
+        }
+        return left > right ? left + 1 : right + 1;
+    }
+
+    //得到遍历结果
+    public List<Node> getResult() {
+        return list;
+    }
+
+    public static void main(String[] args) {
+        Tree tree = new Tree();
+        System.out.println("根节点是：" + tree.root);
+        // tree.preOrder(tree.root);
+        tree.postOrder(tree.root);
+        for (Node node : tree.getResult()) {
+            System.out.println(node.data);
+        }
+        System.out.println("树的尝试是： " + tree.getTreeDepth(tree.root));
+    }
+}
+#+END_SRC
+
+* 总结
+二叉树是一个相当重要的数据结构，它的应用面非常广，并且由它改进生成了很多重要的树类数据结构，如红黑树，堆等，应用价值之高后面深入学习便有体会，因此，掌握它的基本特征和遍历方式实现是学好后续数据结构的基础，理论方面其实我们看到二叉树的形状，我们自己画图才能总结出来，但是代码实现这一块，初学者不是很好理解，树的遍历利用了递归的思想，递归的思想本质无非就是循环，方法调用方法，所以理解二叉树遍历的代码实现最好的方式就是按照它的遍历思想自己画出图来一步一步的遍历一遍，先把这个遍历过程想明白了，然后再根据递归的思想，什么时候调用什么样的方法，自然就能很容易想明白了。
