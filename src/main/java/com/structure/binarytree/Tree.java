@@ -1,7 +1,10 @@
 package com.structure.binarytree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 二叉树的Java实现
@@ -125,6 +128,9 @@ public class Tree {
     }
 
     public static void main(String[] args) {
+        List list = new LinkedList();
+        Map map = new ConcurrentHashMap();
+        List arr = new ArrayList();
         Tree tree = new Tree();
         System.out.println("根节点是：" + tree.root);
         // tree.preOrder(tree.root);
