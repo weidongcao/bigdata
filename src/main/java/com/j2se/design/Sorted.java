@@ -2,14 +2,14 @@ package com.j2se.design;
 
 /**
  * 本程序用于测试java中的各种排序算法
- * 
+ *
  * @author Administrator
- * 
+ *
  */
 public class Sorted {
 	// public static int[] arr = {12, 53, 89, 75, 23, 97, 49, 17, 36, 25, 63,
 	// 26, 41, 55};
-	public static int[] arr = { 12, 53, 89, 75, 23, 97, 49 };
+	public static int[] arr = { 12, 53, 89, 75, 23, 97, 49};
 
 	public static void main(String[] args) {
 		//Sorted sort = new Sorted();
@@ -24,6 +24,7 @@ public class Sorted {
 	}
 
 	/**
+	 * 冒泡排序法
 	 * 基本思想：依次比较相信的两个数，将小数放在前面，套数放在后面。如此重复下去直到最终完成排序 时间复杂度O(n*n),适用于排序小列表
 	 */
 	public int[] bubbleSortArray(int[] arr) {
@@ -48,6 +49,7 @@ public class Sorted {
 	}
 
 	/**
+     * 快速排序法
 	 * 基本思想：选择一个基准元素，通常选择第一个元素或者最后一个元素，通过一趟扫描，将待排序列分成两部分
 	 * 一部分比基准元素小，平分大于等于基准元素，此时基准元素在其排好序后的正确位置，然后再用同样的方法 递归地排序划分的两部分
 	 */
@@ -127,9 +129,50 @@ public class Sorted {
 		return arr;
 	}
 
+    /**
+     * 二分查找又称折半查找，它是一种效率较高的查找方法。
+     * 二分查找要求：
+     * 1. 必须采用顺序存储结构
+     * 2. 必须按关键字大小有序排列
+     * 原理
+     * 将数组分为三部分，依次是中值（所谓的中值就是数组中间位置的那个值）前，中值，中值后；
+     * 将要查找的值和数组的中值进行比较，若小于中值则在中值前面找，若大于中值则在中值后面找，
+     * 等于中值时直接返回。然后依次是一个递归过程，将前半部分或者后半部分继续分解为三部分
+     */
+    //循环实现十分查找算法arr，已经排好充的数组x 需要查找的数-1 无法查到的数据
+    public static int binarySearch(int[] arr, int x) {
+        int low = 0;
+        int high = arr.length - 1;
+        while (low <= high) {
+            int middle = (low + high) / 2;
+            if (x == arr[middle]) {
+                return middle;
+            } else if (x < arr[middle]) {
+                high = middle - 1;
+            } else {
+                low = middle + 1;
+            }
+        }
+        return -1;
+    }
+
+    //递归实现二分查找
+    public static int binarySearch(int[] dataset, int data, int beginIndex, int endIndex) {
+        int midIndex = (beginIndex + endIndex) / 2;
+        if (data < dataset[beginIndex] || data > dataset[endIndex] || beginIndex > endIndex) {
+            return -1;
+        }
+        if (data < dataset[midIndex]) {
+            return binarySearch(dataset, data, beginIndex, midIndex - 1);
+        } else if (data > dataset[midIndex]) {
+            return binarySearch(dataset, data, midIndex - 1, endIndex);
+        } else {
+            return midIndex;
+        }
+    }
 	/**
 	 * 显示数组
-	 * 
+	 *
 	 * @param arr
 	 */
 	public static void display(int[] arr) {
