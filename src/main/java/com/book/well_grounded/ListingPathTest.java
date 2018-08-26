@@ -1,5 +1,9 @@
 package com.book.well_grounded;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -18,7 +22,7 @@ import java.nio.file.Paths;
  * Time:2018-08-26 16:49:07
  */
 public class ListingPathTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /*
          * 在创建了指定目录的Path之后，你可以看一下组成Path的元素个数，在此例中就是上当的数量。
          * 相对其父目录和根目录，Path的位置会更有用。也可以通过指定起始和终止的索引来挑出子路径。
@@ -30,5 +34,16 @@ public class ListingPathTest {
         System.out.println("Parent Path [" + listing.getParent() + "]");
         System.out.println("Root of Path [" + listing.getParent() + "]");
         System.out.println("Subpath from Root, 2 elements deep [" + listing.subpath(0,2) + "]");
+
+        //normalize()方法可以去掉Path中的冗余信息，比如说软链接，相对路径等
+        Path lpt = Paths.get("./src/main/java/com/book/well_grounded/ListingPathTest.java").normalize();
+        System.out.println("File's absulate path is [" + lpt.getParent() + "]");
+
+        //toRealPath()方法也很有效，它整合了toAbsolutePath()和normalize()两个方法的功能，不能检测并跟随符号链接
+        //还是回到Linux/Unix系统中的日志文件那个例子，在/usr/logs目录下有个日志文件log1.txt，而这个目录实际上是指向
+        ///application/logs的软链接，通过调用 toRealPath()，你能得到表示/application/logs/log1.txt的真正Path。
+        Path realPath = Paths.get("./src/main/java/com/book/well_grounded/ListingPathTest.java").toRealPath();
+        System.out.println("File's absulate path is [" + realPath.getParent() + "]");
+
     }
 }
