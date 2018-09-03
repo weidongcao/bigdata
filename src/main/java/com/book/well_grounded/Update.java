@@ -33,6 +33,3 @@ public class Update {
 interface ObjBuilder<T>{
     T build();
 }
-class Author{
-
-}
